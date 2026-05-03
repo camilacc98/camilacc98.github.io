@@ -1,0 +1,2292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Culturas digitales: nuevas narrativas, nuevas identidades</title>
+
+  <!-- Google Fonts e íconos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg: #070714;
+      --bg-soft: #101126;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-strong: rgba(255, 255, 255, 0.13);
+      --white: #f8f7ff;
+      --muted: #b9b7d9;
+      --text-soft: #e4e1ff;
+      --purple: #8d5cff;
+      --blue: #33d6ff;
+      --pink: #ff5cc8;
+      --green: #4fffb0;
+      --border: rgba(255, 255, 255, 0.14);
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+      --radius: 28px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(141, 92, 255, 0.28), transparent 32%),
+        radial-gradient(circle at 85% 15%, rgba(51, 214, 255, 0.18), transparent 28%),
+        radial-gradient(circle at 50% 80%, rgba(255, 92, 200, 0.12), transparent 35%),
+        var(--bg);
+      color: var(--white);
+      overflow-x: hidden;
+      line-height: 1.65;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: linear-gradient(to bottom, black, transparent 88%);
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 4px;
+      z-index: 9999;
+      background: linear-gradient(90deg, var(--purple), var(--blue), var(--pink));
+      box-shadow: 0 0 20px rgba(51, 214, 255, 0.8);
+    }
+
+    .navbar {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(var(--max), calc(100% - 28px));
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 18px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(7, 7, 20, 0.72);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.22);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      box-shadow: 0 0 20px rgba(141, 92, 255, 0.55);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.86rem;
+      color: var(--muted);
+      padding: 8px 12px;
+      border-radius: 999px;
+      transition: 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+      background: rgba(255,255,255,0.09);
+    }
+
+    .menu-btn {
+      display: none;
+      border: 0;
+      color: var(--white);
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      cursor: pointer;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 130px 20px 80px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(7,7,20,0.92), rgba(7,7,20,0.55), rgba(7,7,20,0.92)),
+        url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1800&q=85") center/cover;
+      opacity: 0.75;
+      z-index: -2;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 620px;
+      height: 620px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(51,214,255,0.22), transparent 66%);
+      filter: blur(10px);
+      right: -220px;
+      bottom: -180px;
+      z-index: -1;
+      animation: floatGlow 7s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatGlow {
+      from { transform: translateY(0) scale(1); }
+      to { transform: translateY(-40px) scale(1.08); }
+    }
+
+    .hero-content {
+      width: min(var(--max), 100%);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 45px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      width: fit-content;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.08);
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero h1 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      line-height: 0.93;
+      letter-spacing: -0.075em;
+      margin-bottom: 24px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--white), var(--blue), var(--pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 720px;
+      color: var(--text-soft);
+      font-size: clamp(1.04rem, 1.7vw, 1.3rem);
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 22px;
+      cursor: pointer;
+      font-weight: 800;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      font-family: "Inter", sans-serif;
+    }
+
+    .btn-primary {
+      color: #050510;
+      background: linear-gradient(135deg, var(--blue), var(--purple), var(--pink));
+      box-shadow: 0 18px 40px rgba(141, 92, 255, 0.35);
+    }
+
+    .btn-secondary {
+      color: var(--white);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 45px rgba(51, 214, 255, 0.22);
+    }
+
+    .hero-card {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(255,255,255,0.13), rgba(255,255,255,0.04));
+      box-shadow: var(--shadow);
+      padding: 24px;
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(135deg, rgba(141,92,255,0.5), transparent 35%, rgba(51,214,255,0.35));
+      opacity: 0.5;
+      z-index: -1;
+    }
+
+    .screen-mockup {
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: #0a0b1d;
+    }
+
+    .mock-header {
+      display: flex;
+      gap: 8px;
+      padding: 14px;
+      background: rgba(255,255,255,0.07);
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--pink);
+    }
+
+    .dot:nth-child(2) { background: var(--blue); }
+    .dot:nth-child(3) { background: var(--green); }
+
+    .mock-body {
+      padding: 22px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .code-line {
+      height: 14px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.22), rgba(255,255,255,0.05));
+    }
+
+    .code-line:nth-child(1) { width: 80%; }
+    .code-line:nth-child(2) { width: 58%; }
+    .code-line:nth-child(3) { width: 92%; }
+    .code-line:nth-child(4) { width: 70%; }
+
+    .floating-stat {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .stat strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.5rem;
+      color: var(--blue);
+    }
+
+    .stat span {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .section {
+      padding: 105px 20px;
+    }
+
+    .section.alt {
+      background: linear-gradient(180deg, transparent, rgba(255,255,255,0.035), transparent);
+    }
+
+    .container {
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+    }
+
+    .section-title {
+      max-width: 850px;
+      margin-bottom: 36px;
+    }
+
+    .section-title.center {
+      text-align: center;
+      margin-inline: auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--blue);
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      font-size: 0.78rem;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2rem, 4vw, 3.8rem);
+      line-height: 1;
+      letter-spacing: -0.055em;
+      margin-bottom: 18px;
+    }
+
+    h3 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.45rem;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+    }
+
+    .lead {
+      color: var(--text-soft);
+      font-size: 1.08rem;
+      max-width: 900px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 22px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .card {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      padding: 26px;
+      box-shadow: 0 18px 55px rgba(0,0,0,0.22);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(51,214,255,0.5);
+      background: var(--card-strong);
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 17px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      background: linear-gradient(135deg, rgba(141,92,255,0.85), rgba(51,214,255,0.75));
+      color: white;
+      box-shadow: 0 14px 30px rgba(141,92,255,0.24);
+      font-size: 1.2rem;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+    }
+
+    .quote-card {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 22px;
+      align-items: start;
+      border: 1px solid rgba(51,214,255,0.35);
+      background: linear-gradient(135deg, rgba(51,214,255,0.12), rgba(141,92,255,0.12));
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .quote-mark {
+      width: 56px;
+      height: 56px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.1);
+      display: grid;
+      place-items: center;
+      font-size: 1.6rem;
+      color: var(--blue);
+    }
+
+    .quote-card p {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.25rem, 2vw, 1.8rem);
+      line-height: 1.25;
+      letter-spacing: -0.03em;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.08);
+      color: var(--text-soft);
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: 0.82rem;
+    }
+
+    .compare-card {
+      min-height: 360px;
+    }
+
+    .compare-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .compare-list {
+      list-style: none;
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .compare-list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.09);
+    }
+
+    .compare-list i {
+      color: var(--blue);
+      margin-top: 4px;
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 24px;
+      margin-top: 35px;
+    }
+
+    .reflection {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .number {
+      width: 70px;
+      height: 70px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, var(--purple), var (--pink));
+      display: grid;
+      place-items: center;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      box-shadow: 0 20px 50px rgba(255,92,200,0.25);
+    }
+
+    .reflection .card {
+      padding: 30px;
+    }
+
+    .reflection h3 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+
+    .reflection p {
+      margin-bottom: 12px;
+    }
+
+    .source-note {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(51,214,255,0.08);
+      border: 1px solid rgba(51,214,255,0.18);
+      color: var(--text-soft);
+      font-size: 0.92rem;
+    }
+
+    .case-card {
+      min-height: 290px;
+    }
+
+    .case-card h3 {
+      margin-bottom: 10px;
+    }
+
+    .case-card .mini-label {
+      display: inline-block;
+      margin-bottom: 14px;
+      color: var(--blue);
+      font-weight: 800;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .gallery-item {
+      position: relative;
+      min-height: 330px;
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .gallery-item img {
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .gallery-caption {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 24px;
+      background: linear-gradient(to top, rgba(0,0,0,0.88), transparent);
+    }
+
+    .gallery-caption h3 {
+      margin-bottom: 8px;
+    }
+
+    .gallery-caption p {
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .video-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+    }
+
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .video-content {
+      padding: 22px;
+    }
+
+    .video-content h3 {
+      margin-bottom: 9px;
+    }
+
+    .video-content p {
+      font-size: 0.94rem;
+    }
+
+    .accordion {
+      display: grid;
+      gap: 14px;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .accordion-item {
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .accordion-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      text-align: left;
+      padding: 22px 24px;
+      background: transparent;
+      border: 0;
+      color: var(--white);
+      cursor: pointer;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.18rem;
+      font-weight: 700;
+    }
+
+    .accordion-btn i {
+      transition: transform 0.25s ease;
+      color: var(--blue);
+    }
+
+    .accordion-item.active .accordion-btn i {
+      transform: rotate(180deg);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+
+    .accordion-content p {
+      padding: 0 24px 24px;
+      color: var(--muted);
+    }
+
+    .chart-wrap {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .chart {
+      display: grid;
+      gap: 16px;
+    }
+
+    .bar-row {
+      display: grid;
+      gap: 8px;
+    }
+
+    .bar-label {
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-soft);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .bar-track {
+      height: 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.09);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.09);
+    }
+
+    .bar {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--purple), var(--blue));
+      box-shadow: 0 0 18px rgba(51,214,255,0.35);
+      transition: width 1.3s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .circle-factors {
+      min-height: 420px;
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .orb {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.09);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.25);
+      font-size: 0.86rem;
+      color: var(--text-soft);
+      padding: 12px;
+      animation: orbitFloat 4s ease-in-out infinite alternate;
+    }
+
+    .orb.center {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      background: linear-gradient(135deg, rgba(141,92,255,0.75), rgba(51,214,255,0.62));
+      color: var(--white);
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      z-index: 2;
+    }
+
+    .orb.one { width: 105px; height: 105px; left: 8%; top: 10%; }
+    .orb.two { width: 120px; height: 120px; right: 6%; top: 15%; animation-delay: .4s; }
+    .orb.three { width: 115px; height: 115px; left: 4%; bottom: 16%; animation-delay: .8s; }
+    .orb.four { width: 105px; height: 105px; right: 12%; bottom: 7%; animation-delay: 1.2s; }
+    .orb.five { width: 92px; height: 92px; left: 38%; top: 0; animation-delay: 1.6s; }
+    .orb.six { width: 92px; height: 92px; left: 42%; bottom: 0; animation-delay: 2s; }
+
+    @keyframes orbitFloat {
+      from { transform: translateY(0); }
+      to { transform: translateY(-16px); }
+    }
+
+    .conclusion-card {
+      background: linear-gradient(135deg, rgba(141,92,255,0.18), rgba(51,214,255,0.11));
+      border-color: rgba(141,92,255,0.38);
+    }
+
+    .bibliography {
+      display: grid;
+      gap: 14px;
+      counter-reset: refs;
+    }
+
+    .ref {
+      position: relative;
+      padding: 18px 18px 18px 54px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.11);
+      color: var(--text-soft);
+      word-break: break-word;
+    }
+
+    .ref::before {
+      counter-increment: refs;
+      content: counter(refs);
+      position: absolute;
+      left: 16px;
+      top: 18px;
+      width: 25px;
+      height: 25px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(51,214,255,0.16);
+      color: var(--blue);
+      font-weight: 800;
+      font-size: 0.82rem;
+    }
+
+    .footer {
+      padding: 45px 20px;
+      border-top: 1px solid rgba(255,255,255,0.09);
+      background: rgba(0,0,0,0.18);
+      color: var(--muted);
+    }
+
+    .footer-content {
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .top-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 48px;
+      height: 48px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      backdrop-filter: blur(14px);
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.25s ease;
+      z-index: 900;
+    }
+
+    .top-btn.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    ::selection {
+      background: rgba(51,214,255,0.35);
+      color: white;
+    }
+
+    /* ==============================
+       BLOQUE DE AUDIO GUÍA
+    ============================== */
+    .audio-guide {
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(51, 214, 255, 0.25);
+      background: linear-gradient(135deg, rgba(51, 214, 255, 0.10), rgba(141, 92, 255, 0.12));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .audio-guide-info {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .audio-guide-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      box-shadow: 0 14px 30px rgba(51, 214, 255, 0.25);
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .audio-guide-text strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1rem;
+      color: var(--white);
+    }
+
+    .audio-guide-text span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .audio-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .audio-btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 16px;
+      cursor: pointer;
+      font-family: "Inter", sans-serif;
+      font-weight: 800;
+      color: #050510;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .audio-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(51, 214, 255, 0.22);
+    }
+
+    .audio-btn.stop {
+      color: var(--white);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .audio-btn i {
+      margin-right: 7px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-content,
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .chart-wrap,
+      .video-grid,
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 125px;
+      }
+
+      .hero-card {
+        max-width: 620px;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: calc(100% + 12px);
+        right: 0;
+        width: min(340px, 92vw);
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 14px;
+        border-radius: 24px;
+        background: rgba(7,7,20,0.95);
+        border: 1px solid var(--border);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        display: block;
+      }
+
+      .menu-btn {
+        display: grid;
+        place-items: center;
+      }
+
+      .reflection {
+        grid-template-columns: 1fr;
+      }
+
+      .number {
+        width: 58px;
+        height: 58px;
+        border-radius: 20px;
+        font-size: 1.4rem;
+      }
+
+      .floating-stat {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .section {
+        padding: 82px 17px;
+      }
+
+      .navbar {
+        top: 10px;
+        width: calc(100% - 20px);
+      }
+
+      .brand span {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.7rem, 16vw, 4.2rem);
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .quote-card {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 22px;
+      }
+
+      .circle-factors {
+        min-height: auto;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .orb,
+      .orb.center,
+      .orb.one,
+      .orb.two,
+      .orb.three,
+      .orb.four,
+      .orb.five,
+      .orb.six {
+        position: static;
+        width: auto;
+        height: 105px;
+        border-radius: 22px;
+        animation: none;
+      }
+
+      .orb.center {
+        grid-column: 1 / -1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="progress" id="progress"></div>
+
+  <nav class="navbar">
+    <a href="#inicio" class="brand" aria-label="Ir al inicio">
+      <span class="brand-icon"><i class="fa-solid fa-network-wired"></i></span>
+      <span>Culturas Digitales</span>
+    </a>
+
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#intro">Introducción</a></li>
+      <li><a href="#antes-ahora">Antes y ahora</a></li>
+      <li><a href="#reflexiones">Reflexiones</a></li>
+      <li><a href="#casos">Casos</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#videos">Videos</a></li>
+      <li><a href="#preguntas">Preguntas</a></li>
+      <li><a href="#visualizacion">Visualización</a></li>
+      <li><a href="#conclusiones">Conclusiones</a></li>
+      <li><a href="#bibliografia">Bibliografía</a></li>
+      <li><a href="#informacion">Información</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero" id="inicio">
+    <div class="hero-content">
+      <div class="reveal">
+        <span class="pill">
+          <i class="fa-solid fa-sparkles"></i>
+          Ensayo visual interactivo académico
+        </span>
+
+        <h1>
+          Culturas digitales:
+          <span class="gradient-text">nuevas narrativas, nuevas identidades</span>
+        </h1>
+
+        <p>
+          Una mirada crítica sobre cómo internet, las plataformas, los algoritmos y las comunidades conectadas
+          están transformando la forma en que contamos historias, participamos socialmente y construimos quiénes somos.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#intro" class="btn btn-primary">
+            Iniciar recorrido <i class="fa-solid fa-arrow-down"></i>
+          </a>
+          <a href="#preguntas" class="btn btn-secondary">
+            Preguntas críticas <i class="fa-solid fa-circle-question"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-card reveal">
+        <div class="screen-mockup">
+          <div class="mock-header">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+          <div class="mock-body">
+            <div class="code-line"></div>
+            <div class="code-line"></div>
+            <div class="code-line"></div>
+            <div class="code-line"></div>
+
+            <div class="quote-card" style="margin-top: 8px; padding: 20px;">
+              <div class="quote-mark">
+                <i class="fa-solid fa-user-astronaut"></i>
+              </div>
+              <p style="font-size: 1.35rem;">
+                En la cultura digital, no solo navegamos internet: también somos narrados, clasificados y representados dentro de él.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="floating-stat">
+          <div class="stat">
+            <strong>01</strong>
+            <span>Narrativas interactivas</span>
+          </div>
+          <div class="stat">
+            <strong>02</strong>
+            <span>Identidades visibles</span>
+          </div>
+          <div class="stat">
+            <strong>03</strong>
+            <span>Algoritmos mediadores</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="intro">
+      <div class="container">
+        <div class="section-title reveal">
+          <span class="eyebrow"><i class="fa-solid fa-globe"></i> Introducción</span>
+          <h2>¿Qué son las culturas digitales?</h2>
+          <p class="lead">
+            Las culturas digitales son el conjunto de prácticas, lenguajes, relaciones, formas de participación y modos de producción de sentido que surgen con el uso social de las tecnologías digitales. No se reducen a usar celulares, computadores o redes sociales. Más bien, expresan una transformación profunda en la manera como las personas comunican, aprenden, recuerdan, se muestran, crean comunidad y se relacionan con el mundo.
+          </p>
+        </div>
+
+        <div class="grid grid-3">
+          <article class="card reveal">
+            <div class="card-icon"><i class="fa-solid fa-comments"></i></div>
+            <h3>Comunicar</h3>
+            <p>
+              La comunicación deja de ser únicamente vertical. Las audiencias responden, opinan, producen contenido, corrigen, comparten y hacen circular sentidos propios.
+            </p>
+          </article>
+
+          <article class="card reveal">
+            <div class="card-icon"><i class="fa-solid fa-fingerprint"></i></div>
+            <h3>Construir identidad</h3>
+            <p>
+              La identidad también se negocia en pantallas: perfiles, fotografías, avatares, filtros, comentarios, likes y comunidades influyen en la forma en que cada persona se representa.
+            </p>
+          </article>
+
+          <article class="card reveal">
+            <div class="card-icon"><i class="fa-solid fa-code-branch"></i></div>
+            <h3>Crear narrativas</h3>
+            <p>
+              Los relatos se expanden por múltiples plataformas. Una historia puede comenzar en un documental, continuar en TikTok, convertirse en meme y terminar en una conversación colectiva.
+            </p>
+          </article>
+        </div>
+
+        <div class="quote-card reveal">
+          <div class="quote-mark">
+            <i class="fa-solid fa-quote-left"></i>
+          </div>
+          <p>
+            Las culturas digitales no son solo tecnologías nuevas: son nuevas formas de vivir, narrar, recordar y construir sentido en sociedad.
+          </p>
+        </div>
+
+        <div class="source-note reveal">
+          <strong>Pregunta central del ensayo:</strong> ¿Cómo las culturas digitales están transformando las narrativas y las identidades humanas?
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="antes-ahora">
+      <div class="container">
+        <div class="section-title center reveal">
+          <span class="eyebrow"><i class="fa-solid fa-arrows-left-right"></i> Sección interactiva</span>
+          <h2>Antes y ahora: del relato cerrado al relato expandido</h2>
+          <p class="lead">
+            La cultura digital modificó la relación entre medios, autores y audiencias. Antes, la historia solía llegar terminada; ahora puede ser comentada, intervenida, remezclada y compartida por comunidades enteras.
+          </p>
+        </div>
+
+        <div class="grid grid-2">
+          <article class="card compare-card reveal">
+            <div class="card-icon"><i class="fa-solid fa-tv"></i></div>
+            <h3>Antes: narrativas tradicionales</h3>
+            <p>
+              Predominaban los relatos lineales, emitidos desde medios centralizados y dirigidos a audiencias más pasivas.
+            </p>
+
+            <ul class="compare-list">
+              <li><i class="fa-solid fa-check"></i><span>Historias con inicio, desarrollo y cierre más definidos.</span></li>
+              <li><i class="fa-solid fa-check"></i><span>Medios tradicionales como televisión, radio, prensa o cine.</span></li>
+              <li><i class="fa-solid fa-check"></i><span>Audiencias con menos posibilidades de intervenir el relato.</span></li>
+              <li><i class="fa-solid fa-check"></i><span>La memoria social dependía más de archivos institucionales y medios masivos.</span></li>
+            </ul>
+          </article>
+
+          <article class="card compare-card reveal">
+            <div class="card-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+            <h3>Ahora: narrativas digitales</h3>
+            <p>
+              Los relatos son más fragmentados, colaborativos, veloces y transmedia. El usuario deja de ser solo espectador y se vuelve participante.
+            </p>
+
+            <ul class="compare-list">
+              <li><i class="fa-solid fa-bolt"></i><span>Videos cortos, memes, hilos, reels, podcasts, streams y lives.</span></li>
+              <li><i class="fa-solid fa-bolt"></i><span>Prosumidores: personas que consumen y producen contenido al mismo tiempo.</span></li>
+              <li><i class="fa-solid fa-bolt"></i><span>Comunidades digitales que crean lenguaje, símbolos y pertenencia.</span></li>
+              <li><i class="fa-solid fa-bolt"></i><span>Algoritmos que ordenan qué relato aparece primero y cuál queda oculto.</span></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="reflexiones">
+      <div class="container">
+        <div class="section-title reveal">
+          <span class="eyebrow"><i class="fa-solid fa-brain"></i> Tres reflexiones principales</span>
+          <h2>Lo digital cambió la historia, el sujeto y la mirada</h2>
+          <p class="lead">
+            A partir del documental <em>Lo and Behold: Reveries of the Connected World</em>, del texto de Olga Lucía Londoño Palacio y de autores como Castells, Jenkins, Scolari, Hall, Turkle y García Canclini, se proponen tres reflexiones centrales.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <article class="reflection reveal">
+            <div class="number">1</div>
+            <div class="card">
+              <h3>Las narrativas ya no son lineales, son interactivas</h3>
+              <p>
+                En las culturas digitales, las historias no terminan cuando son publicadas. Al contrario, muchas veces empiezan realmente cuando circulan: alguien comenta, comparte, responde, edita, remezcla o convierte una experiencia en meme. La audiencia deja de ser un público silencioso y se convierte en una comunidad que participa en la construcción del sentido.
+              </p>
+              <p>
+                Esta idea se relaciona con Henry Jenkins y Carlos Scolari, quienes explican que las narrativas transmedia se expanden por diferentes medios y plataformas. Una historia puede vivir en un documental, continuar en redes sociales, ser discutida en YouTube y transformarse en una conversación pública.
+              </p>
+              <div class="tag-list">
+                <span class="tag">Interactividad</span>
+                <span class="tag">Remix</span>
+                <span class="tag">Transmedia</span>
+                <span class="tag">Prosumidores</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="reflection reveal">
+            <div class="number">2</div>
+            <div class="card">
+              <h3>La identidad humana también se construye en espacios digitales</h3>
+              <p>
+                La identidad ya no se expresa únicamente en la vida presencial. Hoy también se representa en perfiles, fotos, biografías, filtros, avatares, publicaciones, comentarios, comunidades y formas de interacción. En redes sociales, las personas seleccionan qué mostrar, qué ocultar y cómo desean ser percibidas.
+              </p>
+              <p>
+                Desde Stuart Hall, la identidad puede entenderse como una construcción social, histórica y cultural; no como algo fijo. En el entorno digital, esta construcción se vuelve más visible y editable. Sherry Turkle también permite pensar cómo la pantalla abre espacios para experimentar con versiones del yo, aunque esa posibilidad también puede generar presión, comparación y ansiedad.
+              </p>
+              <div class="tag-list">
+                <span class="tag">Identidad digital</span>
+                <span class="tag">Representación</span>
+                <span class="tag">Filtros</span>
+                <span class="tag">Subjetividad</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="reflection reveal">
+            <div class="number">3</div>
+            <div class="card">
+              <h3>Los algoritmos influyen en lo que vemos, recordamos y creemos importante</h3>
+              <p>
+                Las plataformas digitales no muestran la información de manera neutral. Los algoritmos ordenan contenidos, sugieren videos, priorizan publicaciones, recomiendan perfiles y deciden qué aparece con mayor visibilidad. Esto transforma la memoria colectiva porque aquello que se repite, se viraliza o aparece primero puede sentirse más importante.
+              </p>
+              <p>
+                Desde Castells, la comunicación es un espacio de poder porque allí se disputa la construcción de sentido. En la cultura digital, ese poder también se relaciona con plataformas, datos y sistemas de recomendación. Por eso, aunque internet abre posibilidades de expresión, también puede reforzar burbujas informativas, estereotipos, desinformación y formas de reconocimiento basadas en métricas.
+              </p>
+              <div class="tag-list">
+                <span class="tag">Algoritmos</span>
+                <span class="tag">Visibilidad</span>
+                <span class="tag">Datos</span>
+                <span class="tag">Poder comunicativo</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="casos">
+      <div class="container">
+        <div class="section-title center reveal">
+          <span class="eyebrow"><i class="fa-solid fa-layer-group"></i> Casos y ejemplos concretos</span>
+          <h2>Narrativas digitales que vemos todos los días</h2>
+          <p class="lead">
+            Las culturas digitales se entienden mejor cuando se observan en prácticas cotidianas: videos cortos, memes, perfiles visuales, comunidades en red, documentales digitales y relatos que se expanden por varias plataformas.
+          </p>
+        </div>
+
+        <div class="grid grid-3">
+          <article class="card case-card reveal">
+            <span class="mini-label">Caso 01</span>
+            <div class="card-icon"><i class="fa-brands fa-tiktok"></i></div>
+            <h3>TikTok y la narrativa breve</h3>
+            <p>
+              TikTok muestra cómo una historia puede contarse en segundos, con edición rápida, música, humor y códigos visuales compartidos. Allí la narración no solo depende del creador, sino también del algoritmo y de la respuesta de la comunidad.
+            </p>
+          </article>
+
+          <article class="card case-card reveal">
+            <span class="mini-label">Caso 02</span>
+            <div class="card-icon"><i class="fa-brands fa-instagram"></i></div>
+            <h3>Instagram e identidad visual</h3>
+            <p>
+              Instagram funciona como una vitrina de identidad. Las personas construyen una versión visual de sí mismas mediante fotografías, filtros, historias, reels, estética, tono y formas de interacción.
+            </p>
+          </article>
+
+          <article class="card case-card reveal">
+            <span class="mini-label">Caso 03</span>
+            <div class="card-icon"><i class="fa-solid fa-face-laugh"></i></div>
+            <h3>Memes como relato social</h3>
+            <p>
+              Los memes son narrativas culturales rápidas. Resumen emociones, críticas, acontecimientos políticos, tensiones sociales y experiencias compartidas usando humor, ironía e imágenes reconocibles.
+            </p>
+          </article>
+
+          <article class="card case-card reveal">
+            <span class="mini-label">Caso 04</span>
+            <div class="card-icon"><i class="fa-brands fa-youtube"></i></div>
+            <h3>YouTube y aprendizaje digital</h3>
+            <p>
+              YouTube permite que el conocimiento circule de manera audiovisual, abierta y comentada. Tutoriales, documentales y ensayos en video convierten el aprendizaje en una experiencia participativa.
+            </p>
+          </article>
+
+          <article class="card case-card reveal">
+            <span class="mini-label">Caso 05</span>
+            <div class="card-icon"><i class="fa-solid fa-people-group"></i></div>
+            <h3>Comunidades digitales</h3>
+            <p>
+              Las comunidades en línea se organizan alrededor de causas, gustos, identidades, territorios o problemas comunes. Allí se producen formas de pertenencia, apoyo, activismo y memoria colectiva.
+            </p>
+          </article>
+
+          <article class="card case-card reveal">
+            <span class="mini-label">Caso 06</span>
+            <div class="card-icon"><i class="fa-solid fa-diagram-project"></i></div>
+            <h3>Narrativas transmedia</h3>
+            <p>
+              Una narrativa transmedia no repite la misma historia en todas partes; la expande. Cada plataforma aporta una pieza diferente: video, foro, podcast, red social, sitio web, juego o experiencia interactiva.
+            </p>
+          </article>
+        </div>
+
+        <div class="source-note reveal">
+          En <em>Lo and Behold</em>, Werner Herzog presenta internet como un ecosistema que conecta conocimiento, ciencia, intimidad, dependencia, riesgo y futuro. Ese enfoque permite comprender que lo digital no es solo una herramienta: es un ambiente cultural que transforma la vida social.
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="galeria">
+      <div class="container">
+        <div class="section-title reveal">
+          <span class="eyebrow"><i class="fa-solid fa-images"></i> Mini galería visual</span>
+          <h2>Imágenes para pensar la cultura digital</h2>
+          <p class="lead">
+            Las siguientes imágenes funcionan como apoyo visual para representar identidad digital, pantallas, datos, comunidad, tecnología y cultura visual.
+          </p>
+        </div>
+
+        <div class="gallery">
+          <figure class="gallery-item reveal">
+            <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1200&q=85" alt="Computador portátil en ambiente tecnológico">
+            <figcaption class="gallery-caption">
+              <h3>Pantallas</h3>
+              <p>La pantalla dejó de ser ventana: también es escenario de vida social.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item reveal">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=85" alt="Jóvenes trabajando con computadores">
+            <figcaption class="gallery-caption">
+              <h3>Comunidades</h3>
+              <p>La cultura digital se construye con otros, en red y en conversación constante.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item reveal">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=85" alt="Datos y tecnología digital">
+            <figcaption class="gallery-caption">
+              <h3>Datos</h3>
+              <p>Cada clic también produce información sobre nuestros gustos, hábitos y recorridos.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item reveal">
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=85" alt="Grupo de personas mirando una pantalla">
+            <figcaption class="gallery-caption">
+              <h3>Participación</h3>
+              <p>Las audiencias digitales opinan, crean, discuten y transforman los relatos.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item reveal">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=85" alt="Código en pantalla">
+            <figcaption class="gallery-caption">
+              <h3>Algoritmos</h3>
+              <p>Lo que vemos en línea también está mediado por sistemas invisibles de selección.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-item reveal">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=85" alt="Personas en espacio digital y creativo">
+            <figcaption class="gallery-caption">
+              <h3>Identidad</h3>
+              <p>En internet, el yo se edita, se comparte y se negocia frente a otros.</p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="videos">
+      <div class="container">
+        <div class="section-title center reveal">
+          <span class="eyebrow"><i class="fa-solid fa-circle-play"></i> Videos de apoyo</span>
+          <h2>Material audiovisual para ampliar el recorrido</h2>
+          <p class="lead">
+            Este video/documental permite comprender cómo las tecnologías digitales no solo transmiten información, sino que también transforman nuestras formas de narrar, relacionarnos y construir sentido.
+          </p>
+        </div>
+
+        <div class="video-grid">
+          <article class="card video-card reveal">
+            <div class="video-frame">
+              <!-- VIDEO 1: si necesitas cambiarlo, reemplaza el ID después de /embed/ -->
+              <iframe src="https://www.youtube.com/embed/Zc1tZ8JsZvg" title="Lo and Behold: Reveries of the Connected World - Official Trailer" allowfullscreen></iframe>
+            </div>
+            <div class="video-content">
+              <h3>Lo and Behold</h3>
+              <p>
+                Tráiler del documental de Werner Herzog. Permite abrir la discusión sobre internet, conexión, dependencia tecnológica y futuro digital.
+              </p>
+            </div>
+          </article>
+
+          <article class="card video-card reveal">
+            <div class="video-frame">
+              <!-- VIDEO 2: cultura participativa / Henry Jenkins -->
+              <iframe src="https://www.youtube.com/embed/yf4C_LeAsHY" title="Henry Jenkins - Cultura participativa" allowfullscreen></iframe>
+            </div>
+            <div class="video-content">
+              <h3>Cultura participativa</h3>
+              <p>
+                Henry Jenkins ayuda a comprender cómo las audiencias dejan de ser receptoras pasivas y se convierten en colaboradoras del relato.
+              </p>
+            </div>
+          </article>
+
+          <article class="card video-card reveal">
+            <div class="video-frame">
+              <!-- VIDEO 3: Carlos Scolari / narrativas transmedia -->
+              <iframe src="https://www.youtube.com/embed/wzTIGFcbGnI" title="Carlos Alberto Scolari - Narrativas Transmedia" allowfullscreen></iframe>
+            </div>
+            <div class="video-content">
+              <h3>Narrativas transmedia</h3>
+              <p>
+                Carlos Scolari permite pensar cómo las historias se expanden entre plataformas, lenguajes y comunidades de usuarios.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="preguntas">
+      <div class="container">
+        <div class="section-title center reveal">
+          <span class="eyebrow"><i class="fa-solid fa-question"></i> Preguntas interactivas</span>
+          <h2>Tres preguntas para abrir debate</h2>
+          <p class="lead">
+            Haz clic en cada pregunta para desplegar una respuesta breve y reflexiva.
+          </p>
+        </div>
+
+        <div class="accordion reveal">
+          <div class="accordion-item">
+            <button class="accordion-btn">
+              ¿Somos realmente libres de elegir lo que vemos?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="accordion-content">
+              <p>
+                Tenemos libertad para buscar, seguir y decidir, pero esa libertad está mediada por plataformas que priorizan ciertos contenidos según datos, intereses comerciales y patrones de comportamiento. Por eso, elegir en internet también implica preguntarnos quién organiza las opciones que aparecen frente a nosotros.
+              </p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-btn">
+              ¿Nuestra identidad digital es una extensión de lo que somos o una versión editada?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="accordion-content">
+              <p>
+                Puede ser ambas cosas. La identidad digital expresa gustos, vínculos y experiencias reales, pero también está atravesada por edición, selección y deseo de reconocimiento. En redes no mostramos todo lo que somos: mostramos una versión construida para ser vista.
+              </p>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-btn">
+              ¿Las culturas digitales democratizan la voz o también generan nuevas desigualdades?
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="accordion-content">
+              <p>
+                Las culturas digitales abren espacios para que más personas creen contenido, denuncien, aprendan y participen. Sin embargo, también producen desigualdades relacionadas con acceso, alfabetización digital, visibilidad algorítmica, privacidad y capacidad de monetizar la atención.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="visualizacion">
+      <div class="container">
+        <div class="section-title reveal">
+          <span class="eyebrow"><i class="fa-solid fa-chart-simple"></i> Visualización simple</span>
+          <h2>Factores que transforman la identidad en culturas digitales</h2>
+          <p class="lead">
+            Esta visualización no representa mediciones estadísticas, sino una lectura interpretativa de los factores que más influyen en la construcción de identidad dentro de la cultura digital.
+          </p>
+        </div>
+
+        <div class="chart-wrap">
+          <div class="card reveal">
+            <div class="chart" id="chart">
+              <div class="bar-row">
+                <div class="bar-label"><span>Redes sociales</span><span>92%</span></div>
+                <div class="bar-track"><div class="bar" data-width="92%"></div></div>
+              </div>
+
+              <div class="bar-row">
+                <div class="bar-label"><span>Algoritmos</span><span>88%</span></div>
+                <div class="bar-track"><div class="bar" data-width="88%"></div></div>
+              </div>
+
+              <div class="bar-row">
+                <div class="bar-label"><span>Comunidades digitales</span><span>82%</span></div>
+                <div class="bar-track"><div class="bar" data-width="82%"></div></div>
+              </div>
+
+              <div class="bar-row">
+                <div class="bar-label"><span>Memes y lenguaje visual</span><span>76%</span></div>
+                <div class="bar-track"><div class="bar" data-width="76%"></div></div>
+              </div>
+
+              <div class="bar-row">
+                <div class="bar-label"><span>Plataformas de video</span><span>84%</span></div>
+                <div class="bar-track"><div class="bar" data-width="84%"></div></div>
+              </div>
+
+              <div class="bar-row">
+                <div class="bar-label"><span>Inteligencia artificial</span><span>79%</span></div>
+                <div class="bar-track"><div class="bar" data-width="79%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="circle-factors reveal">
+            <div class="orb center">Identidad digital</div>
+            <div class="orb one">Redes sociales</div>
+            <div class="orb two">Algoritmos</div>
+            <div class="orb three">Comunidades</div>
+            <div class="orb four">Memes</div>
+            <div class="orb five">Video</div>
+            <div class="orb six">IA</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="conclusiones">
+      <div class="container">
+        <div class="section-title reveal">
+          <span class="eyebrow"><i class="fa-solid fa-flag-checkered"></i> Conclusiones personales</span>
+          <h2>Lo que nos deja este recorrido</h2>
+          <p class="lead">
+            A partir del documental, las lecturas y los ejemplos cotidianos, podemos afirmar que las culturas digitales han cambiado de manera profunda la forma en que contamos historias, participamos socialmente, construimos identidad y nos relacionamos con los demás.
+          </p>
+        </div>
+
+        <div class="grid grid-2">
+          <article class="card conclusion-card reveal">
+            <div class="card-icon"><i class="fa-solid fa-lightbulb"></i></div>
+            <h3>Posibilidades</h3>
+            <p>
+              Las culturas digitales abren oportunidades para crear, aprender, visibilizar experiencias, narrar desde lugares antes excluidos y construir comunidades alrededor de intereses, causas e identidades compartidas. Hoy más personas pueden producir relatos, circular ideas y participar en conversaciones públicas.
+            </p>
+          </article>
+
+          <article class="card conclusion-card reveal">
+            <div class="card-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <h3>Retos</h3>
+            <p>
+              Sin embargo, también aparecen desafíos importantes: dependencia algorítmica, comparación social, desinformación, pérdida de privacidad, vigilancia de datos y nuevas desigualdades de visibilidad. No basta con estar conectados; también necesitamos desarrollar una mirada crítica sobre cómo se organiza esa conexión.
+            </p>
+          </article>
+        </div>
+
+        <div class="quote-card reveal">
+          <div class="quote-mark">
+            <i class="fa-solid fa-pen-nib"></i>
+          </div>
+          <p>
+            Concluimos que la cultura digital no reemplaza lo humano: lo reconfigura. Cambia los escenarios donde contamos quiénes somos, pero también nos exige preguntarnos quién controla esos escenarios.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="bibliografia">
+      <div class="container">
+        <div class="section-title reveal">
+          <span class="eyebrow"><i class="fa-solid fa-book"></i> Bibliografía</span>
+          <h2>Referencias en formato APA</h2>
+        </div>
+
+        <div class="bibliography reveal">
+          <div class="ref">
+            Castells, M. (2009). <em>Comunicación y poder</em>. Alianza Editorial.
+          </div>
+
+          <div class="ref">
+            Fueyo Gutiérrez, M. A. (2011). <em>Comunicación y educación en los nuevos entornos: ¿nativos o cautivos digitales?</em>
+          </div>
+
+          <div class="ref">
+            García Canclini, N. (1990). <em>Culturas híbridas: estrategias para entrar y salir de la modernidad</em>. Grijalbo.
+          </div>
+
+          <div class="ref">
+            Gillespie, T. (2014). The relevance of algorithms. En T. Gillespie, P. J. Boczkowski & K. A. Foot (Eds.), <em>Media technologies: Essays on communication, materiality, and society</em>. MIT Press.
+          </div>
+
+          <div class="ref">
+            Hall, S., & du Gay, P. (Eds.). (2003). <em>Cuestiones de identidad cultural</em>. Amorrortu.
+          </div>
+
+          <div class="ref">
+            Herzog, W. (Director). (2016). <em>Lo and Behold: Reveries of the Connected World</em> [Documental]. Magnolia Pictures / NETSCOUT.
+          </div>
+
+          <div class="ref">
+            Jenkins, H. (2006). <em>Convergence culture: Where old and new media collide</em>. New York University Press.
+          </div>
+
+          <div class="ref">
+            Jenkins, H. (2009). <em>Confronting the challenges of participatory culture: Media education for the 21st century</em>. MIT Press.
+          </div>
+
+          <div class="ref">
+            Londoño Palacio, O. L. (2012). La etnografía desde las narrativas digitales. <em>Itinerario Educativo, 26</em>(59), 143-166. https://doi.org/10.21500/01212753.1465
+          </div>
+
+          <div class="ref">
+            López Poza, S., & Pena Sueiro, N. (Eds.). (2014). <em>Humanidades digitales: desafíos, logros y perspectivas de futuro</em>. Janus.
+          </div>
+
+          <div class="ref">
+            Prensky, M. (2010). <em>Nativos e inmigrantes digitales</em>. Cuadernos SEK 2.0.
+          </div>
+
+          <div class="ref">
+            Scolari, C. A. (2013). <em>Narrativas transmedia: cuando todos los medios cuentan</em>. Deusto.
+          </div>
+
+          <div class="ref">
+            Turkle, S. (1995). <em>Life on the screen: Identity in the age of the Internet</em>. Simon & Schuster.
+          </div>
+
+          <div class="ref">
+            Van Dijck, J. (2013). <em>The culture of connectivity: A critical history of social media</em>. Oxford University Press.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="informacion">
+      <div class="container">
+        <div class="section-title reveal">
+          <span class="eyebrow"><i class="fa-solid fa-school"></i> Información académica</span>
+          <h2>Universidad y programa</h2>
+        </div>
+        <article class="card reveal" style="max-width: 640px; margin: 0 auto; text-align: center;">
+          <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <h3>Universidad Santo Tomás</h3>
+          <p>
+            Maestría en Comunicación, Industrias Digitales y Visualización de Datos
+          </p>
+          <p>
+            Materia: Sociedad y Culturas Digitales
+          </p>
+          <p>
+            Estudiantes: María Camila Camacho, Joseph Andrés Gallardo y Daniel Valencia
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>
+        <strong>Culturas digitales: nuevas narrativas, nuevas identidades</strong><br>
+        &copy; 2026
+      </p>
+
+      <p>
+        Bucaramanga, Colombia
+      </p>
+    </div>
+  </footer>
+
+  <button class="top-btn" id="topBtn" aria-label="Volver arriba">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <script>
+    // ==========================================
+    // CONFIGURACIÓN GENERAL
+    // Aquí puedes cambiar nombres, materia o universidad si lo necesitas.
+    // ==========================================
+    const datosTrabajo = {
+      universidad: "Universidad Santo Tomás",
+      maestria: "Maestría en Comunicación, Industrias Digitales y Visualización de Datos",
+      materia: "Sociedad y Culturas Digitales",
+      estudiante1: "María Camila Camacho",
+      estudiante2: "Joseph Andrés Gallardo",
+      estudiante3: "Daniel Valencia"
+    };
+
+    // Menú responsive
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+      const icon = menuBtn.querySelector("i");
+      icon.classList.toggle("fa-bars");
+      icon.classList.toggle("fa-xmark");
+    });
+
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        const icon = menuBtn.querySelector("i");
+        icon.classList.add("fa-bars");
+        icon.classList.remove("fa-xmark");
+      });
+    });
+
+    // Barra de progreso de lectura
+    const progress = document.getElementById("progress");
+    const topBtn = document.getElementById("topBtn");
+
+    window.addEventListener("scroll", () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const width = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      progress.style.width = width + "%";
+
+      if (scrollTop > 650) {
+        topBtn.classList.add("show");
+      } else {
+        topBtn.classList.remove("show");
+      }
+    });
+
+    topBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // Animaciones al hacer scroll
+    const revealElements = document.querySelectorAll(".reveal");
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, {
+      threshold: 0.14
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Acordeones de preguntas
+    const accordionItems = document.querySelectorAll(".accordion-item");
+
+    accordionItems.forEach(item => {
+      const btn = item.querySelector(".accordion-btn");
+      const content = item.querySelector(".accordion-content");
+
+      btn.addEventListener("click", () => {
+        const isActive = item.classList.contains("active");
+
+        accordionItems.forEach(otherItem => {
+          otherItem.classList.remove("active");
+          otherItem.querySelector(".accordion-content").style.maxHeight = null;
+        });
+
+        if (!isActive) {
+          item.classList.add("active");
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+      });
+    });
+
+    // Animación de barras de visualización
+    const bars = document.querySelectorAll(".bar");
+
+    const chartObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          bars.forEach(bar => {
+            bar.style.width = bar.dataset.width;
+          });
+        }
+      });
+    }, {
+      threshold: 0.3
+    });
+
+    const chart = document.getElementById("chart");
+    if (chart) {
+      chartObserver.observe(chart);
+    }
+
+    // Pequeño efecto parallax en portada
+    const hero = document.querySelector(".hero");
+    window.addEventListener("mousemove", (event) => {
+      const x = (event.clientX / window.innerWidth - 0.5) * 10;
+      const y = (event.clientY / window.innerHeight - 0.5) * 10;
+      hero.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
+    });
+
+    // ==========================================
+    // AUDIOS AUTOMÁTICOS DEL RECORRIDO
+    // Voz del navegador con narradores Joseph y Camila
+    // ==========================================
+
+    const audioScripts = {
+      inicio: [
+        {
+          speaker: "camila",
+          // Actualización: se incluyen los tres nombres
+          text: "Hola, somos Camila Camacho, Joseph Andrés Gallardo y Daniel Valencia. Les damos la bienvenida a este ensayo visual interactivo titulado Culturas digitales: nuevas narrativas, nuevas identidades."
+        },
+        {
+          speaker: "joseph",
+          // Se usa la voz masculina para la segunda parte de la bienvenida
+          text: "En este recorrido exploraremos cómo internet, las redes sociales, los algoritmos y las plataformas digitales han transformado la forma en que contamos historias, construimos nuestra identidad y participamos en la sociedad. Más que hablar solo de tecnología, hablaremos de cómo lo digital está cambiando la experiencia humana."
+        }
+      ],
+
+      intro: [
+        {
+          speaker: "camila",
+          text: "En este primer bloque encontraremos una introducción al concepto de culturas digitales. Aquí entendemos que lo digital no se trata solo de usar computadores, celulares o redes sociales, sino de nuevas formas de comunicarnos, aprender, recordar, crear comunidad y construir identidad."
+        },
+        {
+          speaker: "joseph",
+          text: "Las culturas digitales aparecen cuando la tecnología se integra a la vida cotidiana y modifica la manera en que nos relacionamos, narramos nuestras experiencias y participamos en el mundo."
+        }
+      ],
+
+      "antes-ahora": [
+        {
+          speaker: "joseph",
+          text: "En esta sección compararemos cómo han cambiado las narrativas con la llegada de la cultura digital. Antes, los relatos eran más lineales y venían principalmente de medios tradicionales como la televisión, la radio o la prensa."
+        },
+        {
+          speaker: "camila",
+          text: "Ahora, las historias son más interactivas: se comentan, se comparten, se transforman en memes, circulan por redes sociales y son intervenidas por usuarios que también producen contenido."
+        }
+      ],
+
+      reflexiones: [
+        {
+          speaker: "camila",
+          text: "En este bloque presentamos tres reflexiones principales. Primero, veremos cómo las narrativas digitales dejaron de ser relatos cerrados y se volvieron interactivas."
+        },
+        {
+          speaker: "joseph",
+          text: "Después hablaremos de la identidad digital y de cómo los perfiles, los filtros, los avatares y los likes influyen en la manera en que las personas se muestran y se perciben."
+        },
+        {
+          speaker: "camila",
+          text: "Finalmente, analizaremos el papel de los algoritmos, que seleccionan, ordenan y recomiendan contenidos, influyendo en lo que vemos, recordamos y creemos importante."
+        }
+      ],
+
+      casos: [
+        {
+          speaker: "joseph",
+          text: "En este bloque encontraremos ejemplos concretos de narrativas digitales que hacen parte de nuestra vida cotidiana."
+        },
+        {
+          speaker: "camila",
+          text: "Veremos cómo TikTok transforma los relatos en videos cortos, cómo Instagram influye en la construcción de identidad visual, cómo los memes narran la realidad social y cómo las comunidades digitales se organizan alrededor de gustos, causas o formas de pertenencia."
+        }
+      ],
+
+      galeria: [
+        {
+          speaker: "camila",
+          text: "En esta galería visual observaremos imágenes relacionadas con pantallas, datos, comunidad, identidad y tecnología."
+        },
+        {
+          speaker: "joseph",
+          text: "Cada imagen funciona como una invitación a pensar cómo la cultura digital no solo se lee o se escucha, sino que también se ve. La estética, la imagen y la representación visual son parte fundamental de la forma en que hoy construimos sentido."
+        }
+      ],
+
+      videos: [
+        {
+          speaker: "joseph",
+          text: "En esta sección encontraremos videos de apoyo que amplían la reflexión del ensayo."
+        },
+        {
+          speaker: "camila",
+          text: "El documental Lo and Behold permite comprender cómo internet ha transformado nuestra relación con el conocimiento, la comunicación y la vida cotidiana. También se incluyen contenidos sobre cultura participativa y narrativas transmedia."
+        }
+      ],
+
+      preguntas: [
+        {
+          speaker: "camila",
+          text: "En este bloque se proponen tres preguntas para abrir la reflexión crítica."
+        },
+        {
+          speaker: "joseph",
+          text: "La idea no es dar respuestas cerradas, sino cuestionar nuestra relación con las plataformas digitales: si realmente elegimos libremente lo que vemos, si nuestra identidad digital es auténtica o editada, y si internet democratiza la voz o también produce nuevas desigualdades."
+        }
+      ],
+
+      visualizacion: [
+        {
+          speaker: "joseph",
+          text: "En esta visualización se presentan algunos de los factores que transforman la identidad en las culturas digitales."
+        },
+        {
+          speaker: "camila",
+          text: "Redes sociales, algoritmos, comunidades, memes, plataformas de video e inteligencia artificial aparecen como elementos que influyen en la manera en que nos narramos, nos mostramos y somos reconocidos por los demás."
+        }
+      ],
+
+      conclusiones: [
+        {
+          speaker: "camila",
+          text: "En las conclusiones reconocemos que las culturas digitales han cambiado profundamente la forma en que contamos historias, participamos socialmente y construimos identidad."
+        },
+        {
+          speaker: "joseph",
+          text: "También vemos que lo digital abre posibilidades de creatividad, expresión y aprendizaje, pero al mismo tiempo plantea retos importantes como la dependencia algorítmica, la comparación social, la desinformación y la pérdida de privacidad."
+        },
+        {
+          speaker: "camila",
+          text: "Por eso, más que rechazar la cultura digital, necesitamos aprender a habitarla con criterio."
+        }
+      ],
+
+      bibliografia: [
+        {
+          speaker: "camila",
+          text: "Finalmente, en la bibliografía se reúnen las fuentes que respaldan este ensayo visual."
+        },
+        {
+          speaker: "joseph",
+          text: "Se incluyen autores como Manuel Castells, Henry Jenkins, Carlos Scolari, Stuart Hall, Sherry Turkle, Néstor García Canclini y Olga Lucía Londoño Palacio. Estas referencias permiten conectar la reflexión visual con una base académica sobre comunicación, identidad, cultura digital y narrativas transmedia."
+        }
+      ],
+
+      informacion: [
+        {
+          speaker: "joseph",
+          text: "En esta sección se presentan los datos académicos del trabajo: la universidad, el programa, la materia y los nombres de los estudiantes."
+        }
+      ]
+    };
+
+    let availableVoices = [];
+    let currentAudioId = null;
+    let isAudioPlaying = false;
+
+    function loadVoices() {
+      availableVoices = window.speechSynthesis.getVoices();
+    }
+
+    loadVoices();
+
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    function getVoiceBySpeaker(speaker) {
+      const voices = availableVoices.length ? availableVoices : window.speechSynthesis.getVoices();
+
+      const spanishVoices = voices.filter(voice =>
+        voice.lang && voice.lang.toLowerCase().startsWith("es")
+      );
+
+      const maleHints = [
+        "pablo", "jorge", "diego", "carlos", "juan", "miguel",
+        "raul", "raúl", "andres", "andrés", "enrique"
+      ];
+
+      const femaleHints = [
+        "monica", "mónica", "paulina", "laura", "luciana", "helena",
+        "sabina", "carmen", "maria", "maría", "sofia", "sofía", "isabel"
+      ];
+
+      const hints = speaker === "joseph" ? maleHints : femaleHints;
+
+      const selectedVoice = spanishVoices.find(voice =>
+        hints.some(hint => voice.name.toLowerCase().includes(hint))
+      );
+
+      if (selectedVoice) return selectedVoice;
+
+      // Fallback si no encuentra voz masculina/femenina específica
+      if (speaker === "joseph") {
+        return spanishVoices[0] || voices[0] || null;
+      } else {
+        return spanishVoices[1] || spanishVoices[0] || voices[0] || null;
+      }
+    }
+
+    function speakSequence(audioId, index = 0) {
+      const script = audioScripts[audioId];
+
+      if (!script || index >= script.length) {
+        isAudioPlaying = false;
+        currentAudioId = null;
+        updateAudioButtons();
+        return;
+      }
+
+      const part = script[index];
+      const utterance = new SpeechSynthesisUtterance(part.text);
+
+      utterance.lang = "es-ES";
+      utterance.voice = getVoiceBySpeaker(part.speaker);
+
+      // Diferenciación adicional por tono y velocidad
+      if (part.speaker === "joseph") {
+        utterance.pitch = 0.82;
+        utterance.rate = 0.94;
+      } else {
+        utterance.pitch = 1.08;
+        utterance.rate = 0.96;
+      }
+
+      utterance.volume = 1;
+
+      utterance.onend = () => {
+        speakSequence(audioId, index + 1);
+      };
+
+      utterance.onerror = () => {
+        isAudioPlaying = false;
+        currentAudioId = null;
+        updateAudioButtons();
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function playAudioGuide(audioId) {
+      if (!("speechSynthesis" in window)) {
+        alert("Tu navegador no permite reproducir voz automática.");
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+
+      currentAudioId = audioId;
+      isAudioPlaying = true;
+      updateAudioButtons();
+
+      setTimeout(() => {
+        speakSequence(audioId);
+      }, 120);
+    }
+
+    function stopAudioGuide() {
+      window.speechSynthesis.cancel();
+      currentAudioId = null;
+      isAudioPlaying = false;
+      updateAudioButtons();
+    }
+
+    function updateAudioButtons() {
+      document.querySelectorAll(".audio-btn.play").forEach(btn => {
+        const id = btn.dataset.audio;
+
+        if (isAudioPlaying && currentAudioId === id) {
+          btn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Reproduciendo...';
+        } else {
+          btn.innerHTML = '<i class="fa-solid fa-play"></i> Escuchar guía';
+        }
+      });
+    }
+
+    function createAudioGuide(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (!section || !audioScripts[sectionId]) return;
+
+      const audioBox = document.createElement("div");
+      audioBox.className = "audio-guide reveal visible";
+
+      audioBox.innerHTML = `
+        <div class="audio-guide-info">
+          <div class="audio-guide-icon">
+            <i class="fa-solid fa-headphones"></i>
+          </div>
+          <div class="audio-guide-text">
+            <strong>Audio guía del recorrido</strong>
+            <span>Haz clic para escuchar una explicación breve de este bloque.</span>
+          </div>
+        </div>
+
+        <div class="audio-actions">
+          <button class="audio-btn play" data-audio="${sectionId}">
+            <i class="fa-solid fa-play"></i> Escuchar guía
+          </button>
+          <button class="audio-btn stop" type="button">
+            <i class="fa-solid fa-stop"></i> Detener
+          </button>
+        </div>
+      `;
+
+      const playButton = audioBox.querySelector(".audio-btn.play");
+      const stopButton = audioBox.querySelector(".audio-btn.stop");
+
+      playButton.addEventListener("click", () => playAudioGuide(sectionId));
+      stopButton.addEventListener("click", stopAudioGuide);
+
+      if (sectionId === "inicio") {
+        const heroActions = section.querySelector(".hero-actions");
+        if (heroActions) {
+          heroActions.insertAdjacentElement("afterend", audioBox);
+        }
+      } else {
+        const sectionTitle = section.querySelector(".section-title");
+        if (sectionTitle) {
+          sectionTitle.insertAdjacentElement("afterend", audioBox);
+        }
+      }
+    }
+
+    // Crear automáticamente los audios en cada bloque
+    Object.keys(audioScripts).forEach(createAudioGuide);
+
+    // Detener audio si la persona cierra o recarga la página
+    window.addEventListener("beforeunload", () => {
+      window.speechSynthesis.cancel();
+    });
+  </script>
+</body>
+</html>
